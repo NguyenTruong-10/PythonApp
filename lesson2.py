@@ -32,3 +32,6 @@ class Things():
         self.material = material
         self.color = color
         self.usage = usage
+    def Create(sefl,material, color):
+        table = material + color
+        print(table)
