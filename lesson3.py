@@ -61,3 +61,30 @@ class Con(A):
 c = Con(6,3)
 print(c.devided(6,3)) # sử dụng phương thức của lớp con
 print(c.sum(6,3)) # lớp con sử dụng phương của lớp cha
+
+# Btap 2
+# Xe => lớp cha
+# XeHoi, XeDap => lớp con
+class Xe:
+    def __init__(self,brand, color,price):
+        self.brand =  brand
+        self.color = color
+        self.price = price
+    def Khoi_dong(self):
+        print(f"Xe {self.brand} dang khoi dong")
+
+class XeHoi(Xe):
+    def chay_bang_bon_banh(self):
+        print(f"Xe {self.brand} dang chay ve phia truoc bang dong co")
+class XeDap(Xe):
+    def dap_bang_hai_chan(self):
+        print(f"Xe {self.brand} dang duoc dap ve phia truoc")
+
+xe_hoi = XeHoi("Mercedes","Blak",10000)
+xe_dap = XeDap("BMW","Red",20000)
+
+xe_hoi.Khoi_dong()
+xe_hoi.chay_bang_bon_banh()
+
+xe_dap.Khoi_dong()
+xe_dap.dap_bang_hai_chan()
