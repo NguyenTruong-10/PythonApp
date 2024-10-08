@@ -52,15 +52,15 @@ class A():
     def __init__(self, a, b):
         self.a = a 
         self.b = b
-    def sum(self,a,b):
+    def sum(self):
         return self.a+self.b
 class Con(A):
-    def devided(self,a,b):
-        return a/b
+    def devided(self):
+        return self.a/self.b
 
 c = Con(6,3)
-print(c.devided(6,3)) # sử dụng phương thức của lớp con
-print(c.sum(6,3)) # lớp con sử dụng phương của lớp cha
+print("Phep chia:",c.sum()) # sử dụng phương thức của lớp con
+# print(c.sum(6,3)) # lớp con sử dụng phương của lớp cha
 
 # Btap 2
 # Xe => lớp cha
