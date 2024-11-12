@@ -28,6 +28,30 @@ class Register(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("Regiter.ui", self)
+        self.btn_back.clicked.connect(self.BacktoLogin)
+    def BacktoLogin(self):
+        user_name = self.edt_user.text()
+        password = self.edt_pass.text()
+        confirm_password = self.edt_confirn.text()
+        phonenumber = self.edt_number.text()
+        if user_name != "" and password !="" and confirm_password !="" and phonenumber !="":
+            if confirm_password == password :
+                msg_box_confirm.setText("Tao tai khoan thanh cong")
+                msg_box_confirm.exec()
+                #Reset lai lineEdit
+                self.edt_user.setText("")
+                self.edt_confirn.setText("")
+                self.edt_pass.setText("")
+                self.edt_number.setText("")
+
+                self.close()
+                window.show()
+            elif (confirm_password != password):
+                msg_box.setText("Mat khau khong giong nhau")
+                msg_box.exec()
+        elif user_name == "" or password == "" or confirm_password =="" or phonenumber == "":
+                msg_box.setText("Khong duoc de trong")
+                msg_box.exec()
 
 class Main(QMainWindow):
     def __init__(self):
@@ -48,9 +72,9 @@ if __name__ == '__main__':
     msg_box.setIcon(QMessageBox.Icon.Warning)
     msg_box.setStyleSheet("background-color: #F8F2EC; color: #356a9c")
     #Mẫu sử dụng một message box khác
-    # msg_box_confirm = QMessageBox()
-    # msg_box_confirm.setWindowTitle("Xác nhận")
-    # msg_box_confirm.setIcon(QMessageBox.Icon.Information)
-    # msg_box_confirm.setStyleSheet("background-color: #F8F2EC; color: #356a9c")
+    msg_box_confirm = QMessageBox()
+    msg_box_confirm.setWindowTitle("Xác nhận")
+    msg_box_confirm.setIcon(QMessageBox.Icon.Information)
+    msg_box_confirm.setStyleSheet("background-color: #F8F2EC; color: #356a9c")
     window.show()
     app.exec()
