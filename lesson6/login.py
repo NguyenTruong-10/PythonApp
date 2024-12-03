@@ -1,39 +1,54 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow,QMessageBox
 from PyQt6 import uic
 import sys
-
+temp_password = ""
+temp_user = ""
 class Login(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("login.ui", self)
+        uic.loadUi("UI/login.ui", self)
         self.btn_login.clicked.connect(self.LoginToMain)
         self.lb_createAccount.mousePressEvent = self.CreateAccount # Ấn label
+        print(temp_password)
+        print(temp_user)
     def CreateAccount(self,event):
         self.close()
         register.show()
     def LoginToMain(self):
-        print("Da mo file main")
         username = self.edt_username.text()
         password = self.edt_password.text()
-        if username != "" and password != "":
-            self.close()
-            main.show()
-        elif username == "" or password == "":
-            msg_box.setText("Username và password không được để trống")
+        if temp_user != "" and temp_password != "":
+            if username == "" or password == "":
+                msg_box.setText("Username và password không được để trống")
+                msg_box.exec()
+            elif username == temp_user and password == temp_password: #Điều kiện tài khoản đúng 
+                self.edt_username.setText("")
+                self.edt_password.setText("")
+                self.close()
+                main.show()
+            elif username != temp_user: #Điều kiện tài khoản sai 
+                msg_box.setText("Không tồn tại tài khoản")
+                msg_box.exec()
+            else:  # Điều kiện còn lại là username đúng nhưng password sai
+                msg_box.setText("Mật khẩu không đúng")
+                msg_box.exec()
+        else:
+            msg_box.setText("Không tồn tại tài khoản")
             msg_box.exec()
-            #Mẫu sử dụng một message box khác
-            # msg_box_confirm.setText("Username và password không được để trống")
-            # msg_box_confirm.exec()
+
 class Register(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("Regiter.ui", self)
+        uic.loadUi("UI/Regiter.ui", self)
         self.btn_back.clicked.connect(self.BacktoLogin)
     def BacktoLogin(self):
+        global temp_user, temp_password # tạo hai biến toàn cục 
         user_name = self.edt_user.text()
         password = self.edt_pass.text()
         confirm_password = self.edt_confirn.text()
         phonenumber = self.edt_number.text()
+        temp_user = user_name # gán biến từ lineEdit vào biến cục bộ
+        temp_password = password
         if user_name != "" and password !="" and confirm_password !="" and phonenumber !="":
             if confirm_password == password :
                 msg_box_confirm.setText("Tao tai khoan thanh cong")
@@ -43,7 +58,6 @@ class Register(QMainWindow):
                 self.edt_confirn.setText("")
                 self.edt_pass.setText("")
                 self.edt_number.setText("")
-
                 self.close()
                 window.show()
             elif (confirm_password != password):
@@ -56,7 +70,7 @@ class Register(QMainWindow):
 class Main(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("main.ui", self)
+        uic.loadUi("UI/main.ui", self)
         self.bnt_logout.clicked.connect(self.LogoutToLogin)
     def LogoutToLogin(self):
         print("Da mo file login")
